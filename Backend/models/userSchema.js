@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 import { validate } from "node-cron";
 
-const userSchema = new mongoose.Schemma({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schemma({
     url: String,
   },
   coverLetter: {
-    type: Strign,
+    type: String,
   },
   createdAt: {
     type: Date,
