@@ -2,7 +2,7 @@ import { catchAsyncErrors } from "../middlewares/caatchAsyncErrors.js";
 import ErrorHandler from "../middlewares/error.js";
 import { User } from "../models/userSchema.js";
 import { v2 as cloudinary } from "cloudinary";
-
+import { sendTocken } from "../utils/jwtTocken.js";
 export const register = catchAsyncErrors(async (req, res, next) => {
   try {
     const {
@@ -64,10 +64,11 @@ export const register = catchAsyncErrors(async (req, res, next) => {
       }
     }
     const user = await User.create(UserData);
-    res.status(201).json({
-      success: true,
-      message: "User Registered",
-    });
+    sendTocken(user, 201, res, "User Registerd ..");
+    // res.status(201).json({
+    //   success: true,
+    //   message: "User Registered",
+    // });
   } catch (error) {
     return next(new ErrorHandler("fileds Are required ", 400));
   }

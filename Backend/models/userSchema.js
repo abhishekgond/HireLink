@@ -42,9 +42,12 @@ const userSchema = new mongoose.Schema({
     ThirdNiche: String,
   },
   resume: {
-    type: String,
-    url: String,
+    type: {
+      path: String,
+      metadata: String,
+    },
   },
+
   coverLetter: {
     type: String,
   },
@@ -53,4 +56,11 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+userSchema.method.getJWTToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
+
 export const User = mongoose.model("User", userSchema);
